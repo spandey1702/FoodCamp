@@ -26,9 +26,10 @@ def login_user(email: str, password: str, db: Session):
             detail="Invalid credentials"
         )
 
-    token = create_access_token({
-        "sub": user.email,
-        "role": user.role
-    })
-
-    return token
+    token = create_access_token(data={"sub": str(user.id), "role": user.role})
+    return{
+        "access_token": token,
+        "token_type": "bearer",
+        "role": user.role  
+    }
+    

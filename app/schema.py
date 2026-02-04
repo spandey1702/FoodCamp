@@ -4,6 +4,7 @@ class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: str
+    role : str 
 
 class UserOut(BaseModel):
     id: int
@@ -19,3 +20,5 @@ class UserLogin(BaseModel):
 
 class TokenResponse(BaseModel):
     access_token: str
+    token_type: str
+    role: str
