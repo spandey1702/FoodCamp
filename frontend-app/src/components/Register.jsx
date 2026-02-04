@@ -5,6 +5,7 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    role: "camp", // default value
   });
 
   const [message, setMessage] = useState("");
@@ -28,7 +29,7 @@ export default function Register() {
 
       if (res.ok) {
         setMessage("Registration successful!");
-        setForm({ name: "", email: "", password: "" });
+        setForm({ name: "", email: "", password: "", role: "camp" });
       } else {
         const data = await res.json();
         setMessage("Error: " + (data.detail || "Something went wrong"));
@@ -74,6 +75,19 @@ export default function Register() {
             onChange={handleChange}
             required
           />
+        </div>
+
+        <div>
+          <label>Role:</label>
+          <select
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+            required
+          >
+            <option value="camp">Camp</option>
+            <option value="restaurant">Restaurant</option>
+          </select>
         </div>
 
         <button type="submit">Register</button>
