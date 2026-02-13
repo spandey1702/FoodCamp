@@ -23,6 +23,9 @@ export default function Login() {
       localStorage.setItem("role", data.role);
       if(data.role==="camp") navigate("/camp/dashboard");
       else if(data.role==="restaurant") navigate("/restaurant/dashboard");
+      if (data.role === "restaurant") {
+        localStorage.setItem("restaurant_id", data.restaurant_id);
+      }
       else navigate("/");
     }
       catch(err){

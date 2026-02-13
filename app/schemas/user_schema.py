@@ -10,6 +10,7 @@ class UserOut(BaseModel):
     id: int
     name: str
     email: EmailStr
+    name: str
 
     class Config:
         orm_mode = True

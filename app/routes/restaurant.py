@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Form, HTTPException,UploadFile,File, Depends
+from app.models.food_listing import FoodListing
 from app.schemas.food_listing_schema import FoodListingResponse
 from app.services.food_scan import scan_food
 from app.database import get_db
 from sqlalchemy.orm import Session
+
 router = APIRouter(prefix="/restaurant")
 
 @router.post("/scan-food")
@@ -29,3 +31,23 @@ async def confirm_quantity_endpoint(
         "quantity": quantity,
         "message": f"Confirmed {quantity} servings of {food_name} for restaurant {restaurant_id}"
     }
+
+
+@router.get("/listings", response_model=list[FoodListingResponse])
+def get_listings(restaurant_id: int, db: Session = Depends(get_db)):
+    listings = db.query(FoodListing).filter(FoodListing.restaurant_id == restaurant_id).all()
+
+    response = [
+        FoodListingResponse(
+            id=item.id,
+            restaurant_id=item.restaurant_id,
+            food_name=item.food_name,
+            quantity=item.quantity,
+            created_at=item.created_at.isoformat(),
+            is_active=item.is_active,
+            message="Fetched successfully"
+        )
+        for item in listings
+    ]
+
+    return response

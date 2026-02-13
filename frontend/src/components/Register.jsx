@@ -5,6 +5,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    username: "",
     name: "",
     email: "",
     password: "",
@@ -19,6 +20,16 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!form.username.trim()) {
+      setMessage("Please enter a username");
+      return;
+    }
+    if (!form.name.trim()) {
+      setMessage(`Please enter your ${form.role} name`);
+      return;
+    }
+
     try {
       const res = await fetch("http://127.0.0.1:8000/auth/register", {
         method: "POST",
@@ -28,7 +39,14 @@ export default function Register() {
 
       if (res.ok) {
         setMessage("Registration successful!");
-        setForm({ name: "", email: "", password: "", role: "camp" });
+        setForm({
+          username: "",
+          name: "",
+          email: "",
+          password: "",
+          role: "camp",
+        });
+        navigate("/login");
       } else {
         const data = await res.json();
         setMessage(data.detail || "Something went wrong");
@@ -46,8 +64,16 @@ export default function Register() {
 
       <form onSubmit={handleSubmit}>
         <input
+          name="username"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          required
+        />
+
+        <input
           name="name"
-          placeholder="Name"
+          placeholder={form.role === "restaurant" ? "Restaurant Name" : "Camp Name"}
           value={form.name}
           onChange={handleChange}
           required

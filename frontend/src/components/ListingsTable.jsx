@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ListingsTable() {
-  // mock data
-  const listings = [
-    { id: 1, food: "Pending Detection", qty: 5, status: "Available" },
-  ];
+  const [listings, setListings] = useState([]); 
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const res = await fetch(
+          "http://127.0.0.1:8000/restaurant/listings?restaurant_id=1"
+        );
+        const data = await res.json();
+
+        const tableData = data.map((item) => ({
+          id: item.id,
+          food: item.food_name,
+          qty: item.quantity,
+          status: item.is_active ? "Available" : "Sold",
+        }));
+
+        setListings(tableData);
+      } catch (err) {
+        console.error("Error fetching listings:", err);
+      }
+    };
+
+    fetchListings();
+  }, []); 
 
   return (
     <div>
