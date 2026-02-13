@@ -12,7 +12,7 @@ class FoodListing(Base):
     price = Column(Float, nullable=False)
     location = Column(String, nullable=False)
     created_at = Column(DateTime, nullable=False)
-    is_active = Column(Boolean, default=True)
+    is_active = Column(bool, default=True)
     restaurant = relationship("Restaurant")
 
     
