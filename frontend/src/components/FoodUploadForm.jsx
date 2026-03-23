@@ -36,36 +36,90 @@ export default function FoodUploadForm() {
   };
 
   return (
-    <div style={{ maxWidth: "400px" }}>
-      <h3>Add Food Listing</h3>
+    <div style={styles.container}>
+      <h3 style={styles.heading}>Add Food Listing</h3>
 
-      {message && <p>{message}</p>}
+      {message && <p style={styles.message}>{message}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Food Image</label>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Food Image</label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
+            style={styles.input}
             required
           />
         </div>
 
-        <div>
-          <label>Quantity (servings)</label>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Quantity</label>
           <input
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+            style={styles.input}
+            placeholder="Enter quantity"
             required
           />
         </div>
 
-        <button type="submit" style={{ marginTop: "10px" }}>
-          Submit
+        <button type="submit" style={styles.button}>
+          Upload
         </button>
       </form>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "20px auto",
+    padding: "20px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    backgroundColor: "#f9f9f9",
+  },
+  heading: {
+    textAlign: "center",
+    marginBottom: "20px",
+    color: "#333",
+  },
+  message: {
+    textAlign: "center",
+    marginBottom: "15px",
+    color: "green",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  formGroup: {
+    marginBottom: "15px",
+  },
+  label: {
+    display: "block",
+    marginBottom: "5px",
+    fontWeight: "bold",
+    color: "#555",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    fontSize: "14px",
+  },
+  button: {
+    padding: "10px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "16px",
+  },
+};

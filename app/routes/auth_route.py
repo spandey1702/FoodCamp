@@ -17,5 +17,7 @@ def register(user_create: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=TokenResponse)
 def login(user: UserLogin, db: Session = Depends(get_db)):
-    return login_user(user.email, user.password, db)
+    login_response=login_user(user.email, user.password, db)
+    print("Login response:", login_response)
+    return login_response
 

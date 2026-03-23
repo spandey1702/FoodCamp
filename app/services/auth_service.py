@@ -31,12 +31,15 @@ def login_user(email: str, password: str, db: Session):
     response={
         "access_token": token,
         "token_type": "bearer",
-        "role": user.role  
+        "role": user.role , 
+        "restaurant_id": None,
+        "camp_id": None
     }
     if user.role == "restaurant":
         response["restaurant_id"] = user.restaurant_id
-    
+        print("User is a restaurant, restaurant_id:", user.restaurant_id)    
     if user.role == "camp":
         response["camp_id"] = user.camp_id
+    print ("Login successful, response:", response)
     return response
     

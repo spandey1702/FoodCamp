@@ -26,6 +26,7 @@ export default function Login() {
       localStorage.setItem("role", data.role);
 
       if (data.role === "restaurant") {
+        console.log("Restaurant ID:", data.restaurant_id);
         localStorage.setItem("restaurant_id", data.restaurant_id);
         navigate("/restaurant/dashboard");
       } else if (data.role === "camp") {
@@ -65,6 +66,15 @@ export default function Login() {
           Login
         </button>
       </form>
+      <p style={styles.redirectText}>
+        Don't have an account?{" "}
+        <span
+          style={styles.registerLink}
+          onClick={() => navigate("/register")}
+        >
+          Register here
+        </span>
+      </p>
     </div>
   );
 }
@@ -117,5 +127,16 @@ const styles = {
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "16px",
+  },
+  redirectText: {
+    textAlign: "center",
+    marginTop: "15px",
+    color: "#555",
+    fontSize: "14px",
+  },
+  registerLink: {
+    color: "#007BFF",
+    cursor: "pointer",
+    textDecoration: "underline",
   },
 };

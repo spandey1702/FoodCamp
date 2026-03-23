@@ -15,8 +15,8 @@ class UserOut(BaseModel):
     name: str
     email: EmailStr
     role: str
-    restaurant_id: Optional[int] = None
-    camp_id: Optional[int] = None
+    restaurant_id: Optional[int] 
+    camp_id: Optional[int] 
     created_at: datetime
 
 class UserLogin(BaseModel):
@@ -27,3 +27,5 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str
     role: str
+    restaurant_id: Optional[int]
+    camp_id: Optional[int]
