@@ -12,6 +12,8 @@ class FoodListing(Base):
     created_at = Column(DateTime, nullable=False)
     is_active = Column(Boolean, default=True)
     is_claimed = Column(Boolean, default=False)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     restaurant_id = Column(Integer, ForeignKey("restaurants.id"), nullable=False)
     claimed_by_camp_id = Column(Integer, ForeignKey("camps.id"), nullable=True)
     restaurant = relationship("Restaurant")

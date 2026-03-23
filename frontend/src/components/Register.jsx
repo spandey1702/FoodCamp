@@ -52,65 +52,141 @@ export default function Register() {
         setMessage(data.detail || "Something went wrong");
       }
     } catch (err) {
-      setMessage(err.message);
+      setMessage("Server error. Please try again later.");
     }
+  };
+  const styles = {
+    container: {
+      maxWidth: "400px",
+      margin: "50px auto",
+      padding: "20px",
+      border: "1px solid #ccc",
+      borderRadius: "8px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      backgroundColor: "#f9f9f9",
+    },
+    heading: {
+      textAlign: "center",
+      marginBottom: "20px",
+      color: "#333",
+    },
+    message: {
+      color: "red",
+      textAlign: "center",
+      marginBottom: "15px",
+    },
+    form: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    formGroup: {
+      marginBottom: "15px",
+    },
+    label: {
+      display: "block",
+      marginBottom: "5px",
+      fontWeight: "bold",
+      color: "#555",
+    },
+    input: {
+      width: "100%",
+      padding: "10px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+      fontSize: "14px",
+    },
+    select: {
+      width: "100%",
+      padding: "10px",
+      border: "1px solid #ccc",
+      borderRadius: "4px",
+      fontSize: "14px",
+    },
+    button: {
+      padding: "10px",
+      backgroundColor: "#007BFF",
+      color: "#fff",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "16px",
+    },
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "40px auto" }}>
-      <h2>Register</h2>
-
-      {message && <p>{message}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="name"
-          placeholder={form.role === "restaurant" ? "Restaurant Name" : "Camp Name"}
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="camp">Camp</option>
-          <option value="restaurant">Restaurant</option>
-        </select>
-
-        <button type="submit">Register</button>
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Register</h2>
+      {message && <p style={styles.message}>{message}</p>}
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            style={styles.input}
+            placeholder="Enter your username"
+          />
+        </div>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Name</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            style={styles.input}
+            placeholder={`Enter your ${form.role} name`}
+          />
+        </div>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            style={styles.input}
+            placeholder="Enter your email"
+          />
+        </div>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            style={styles.input}
+            placeholder="Enter your password"
+          />
+        </div>
+        <div style={styles.formGroup}>
+          <label style={styles.label}>Role</label>
+          <select
+            name="role"
+            value={form.role}
+            onChange={handleChange}
+            style={styles.select}
+          >
+            <option value="camp">Camp</option>
+            <option value="restaurant">Restaurant</option>
+          </select>
+        </div>
+        <button type="submit" style={styles.button}>
+          Register
+        </button>
       </form>
-
-      <hr />
-
-      <p>Already have an account?</p>
-      <button onClick={() => navigate("/login")}>
-        Go to Login
-      </button>
+      <p style={styles.redirectText}>
+        Already have an account?{" "}
+        <span
+          style={styles.loginLink}
+          onClick={() => navigate("/login")}
+        >
+          Login here
+        </span>
+      </p>
     </div>
   );
 }

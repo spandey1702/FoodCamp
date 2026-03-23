@@ -1,11 +1,17 @@
 from fastapi import APIRouter, Form, HTTPException,UploadFile,File, Depends
 from app.models.food_listing import FoodListing
+from app.models.restaurant import Restaurant
 from app.schemas.food_listing_schema import FoodListingResponse
 from app.services.food_scan import scan_food
 from app.database import get_db
 from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/restaurant")
+
+@router.get("/all")
+async def get_all_restaurants():
+    db:Session=Depends(get_db)
+    return db.query(Restaurant).all()
 
 @router.post("/scan-food")
 async def scan_food_endpoint(file: UploadFile = File(...)):
