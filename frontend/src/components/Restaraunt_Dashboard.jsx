@@ -10,7 +10,6 @@ export default function RestaurantDashboard() {
       <FoodUploadForm />
 
       <hr style={{ margin: "40px 0" }} />
-
       <ListingsTable />
     </div>
   );

@@ -8,29 +8,34 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-     const res=await fetch("http://127.0.0.1:8000/auth/login", {
+    try {
+      const res = await fetch("http://127.0.0.1:8000/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      const data=await res.json();
-      if(!res.ok){
+
+      const data = await res.json();
+      if (!res.ok) {
         alert(data.detail || "Login failed");
         return;
       }
+
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
-      if(data.role==="camp") navigate("/camp/dashboard");
-      else if(data.role==="restaurant") navigate("/restaurant/dashboard");
+
       if (data.role === "restaurant") {
         localStorage.setItem("restaurant_id", data.restaurant_id);
+        console.log("Login success:", data);
+        navigate("/restaurant/dashboard");
+      } else if (data.role === "camp") {
+        navigate("/camp/dashboard");
+      } else {
+        navigate("/");
       }
-      else navigate("/");
+    } catch (err) {
+      alert(err.message);
     }
-      catch(err){
-        alert(err.message);
-      }
   };
 
   return (

@@ -1,10 +1,11 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.models.user import User
+from app.models.camp import Camp
 from app.schemas.user_schema import UserCreate
 from app.services.security import verify_password,hash_password, create_access_token
 from app.repositories.user_repo import create_user,get_user_by_email
-from app.database import get_db as db
+from app.database import get_db
 
 def register_user(user_create: UserCreate, db: Session):
     existing_user = get_user_by_email(db, user_create.email)
@@ -27,9 +28,15 @@ def login_user(email: str, password: str, db: Session):
         )
 
     token = create_access_token(data={"sub": str(user.id), "role": user.role})
-    return{
+    response={
         "access_token": token,
         "token_type": "bearer",
         "role": user.role  
     }
+    if user.role == "restaurant":
+        response["restaurant_id"] = user.restaurant_id
+    
+    if user.role == "camp":
+        response["camp_id"] = user.camp_id
+    return response
     

@@ -6,7 +6,7 @@ export default function ListingsTable() {
     const fetchListings = async () => {
       try {
         const res = await fetch(
-          "http://127.0.0.1:8000/restaurant/listings?restaurant_id=1"
+          "http://127.0.0.1:8000/restaurant/listings?restaurant_id={restaurant_id}"
         );
         const data = await res.json();
 
