@@ -2,6 +2,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime
 from app.database import Base
 
+
 class Camp(Base):
     __tablename__ = "camps"
 
