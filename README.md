@@ -161,9 +161,6 @@ python scripts/train_food101.py
 | `PATCH` | `/camp/claims/{id}/pickup` | Mark claim as picked up |
 | `GET`  | `/camp/claims` | My claims |
 
-Full interactive docs at `http://localhost:8000/docs` (Swagger UI).
-
----
 
 ## Notes
 
@@ -174,6 +171,3 @@ Full interactive docs at `http://localhost:8000/docs` (Swagger UI).
 
 ---
 
-## License
-
-MIT
